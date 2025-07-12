@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Minnoşum ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Arial", sans-serif;
+      background: linear-gradient(to bottom, #ffd6e8, #fff0f5);
+      text-align: center;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 24px;
+      margin-top: 80px;
+      color: #800040;
+    }
+    .buton {
+      font-size: 20px;
+      padding: 12px 24px;
+      margin: 10px;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: absolute;
+    }
+    .evet {
+      background-color: #a3f7bf;
+    }
+    .hayir {
+      background-color: #ff8da7;
+    }
+    .kalp {
+      position: fixed;
+      font-size: 24px;
+      animation: fly 3s linear forwards;
+      pointer-events: none;
+      color: red;
+    }
+    @keyframes fly {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-200px) scale(1.5);
+        opacity: 0;
+      }
+    }
+    #mesaj {
+      font-size: 22px;
+      color: #d4006a;
+      margin-top: 40px;
+      font-weight: bold;
+    }
+    iframe {
+      display: none;
+    }
+  </style>
+</head>
+<body onclick="muzigiCal()">
+
+  <h1 id="soru">Beni seviyor musun?</h1>
+
+  <button id="evet" class="buton evet" onclick="evetTikla()" style="left: 30%; top: 60%;">Evet</button>
+  <button id="hayir" class="buton hayir" onclick="hayirTikla()" style="left: 60%; top: 60%;">Hayır</button>
+
+  <div id="mesaj"></div>
+
+  <!-- Müzik (YouTube embed) -->
+  <iframe id="muzik" width="0" height="0" src="https://www.youtube.com/embed/aDju79MtUR8?autoplay=1&loop=1&playlist=aDju79MtUR8" allow="autoplay"></iframe>
+
+  <script>
+    const sorular = [
+      "Beni seviyor musun?",
+      "Emin misin?",
+      "Bak bu son şansın",
+      "Tekrar düşünmeni istiyorum",
+      "Hata yapma sakın",
+      "Seviyorsun seviyorsun biliyorum",
+      "Hadi evete bas",
+      "Bekliyorum bak",
+      "Sevdiğini biliyorum",
+      "Naz yapma hadi",
+      "Bas şu evete",
+      "Hadi ama bekliyorum",
+      "Sonsuza kadar gider böyle",
+      "Seni bırakmayacağım haberin olsun",
+      "Seni yıldızlar kadar çok seviyorum"
+    ];
+
+    let soruIndex = 0;
+    let hayirFontSize = 20;
+    let evetFontSize = 20;
+    let hayirClickCount = 0;
+
+    function hayirTikla() {
+      // Soru değiştir
+      soruIndex = (soruIndex + 1) % sorular.length;
+      document.getElementById("soru").textContent = sorular[soruIndex];
+
+      // Buton boyutlarını değiştir
+      hayirFontSize = Math.max(10, hayirFontSize - 1);
+      evetFontSize = Math.min(40, evetFontSize + 2);
+
+      document.getElementById("hayir").style.fontSize = hayirFontSize + "px";
+      document.getElementById("evet").style.fontSize = evetFontSize + "px";
+
+      // Buton pozisyonu değiştir
+      const hayirBtn = document.getElementById("hayir");
+      const x = Math.floor(Math.random() * 80); // yüzde
+      const y = Math.floor(Math.random() * 60) + 20;
+      hayirBtn.style.left = x + "%";
+      hayirBtn.style.top = y + "%";
+
+      // Gizli mesaj göster
+      hayirClickCount++;
+      if (hayirClickCount === 5) {
+        document.getElementById("mesaj").textContent = "Artık naz yapma minnoşum 😘";
+      }
+    }
+
+    function evetTikla() {
+      document.getElementById("soru").textContent = "";
+      document.getElementById("mesaj").textContent = "Seni çok seviyorum güzel minnoşum 💖";
+
+      // Kalpler uçsun
+      for (let i = 0; i < 15; i++) {
+        const kalp = document.createElement("div");
+        kalp.className = "kalp";
+        kalp.textContent = "❤️";
+        kalp.style.left = Math.random() * 100 + "vw";
+        kalp.style.top = Math.random() * 80 + "vh";
+        document.body.appendChild(kalp);
+        setTimeout(() => kalp.remove(), 3000);
+      }
+    }
+
+    // Müzik otomatik başlasın (ilk tıklamada)
+    function muzigiCal() {
+      document.getElementById("muzik").style.display = "block";
+    }
+  </script>
+</body>
+</html>
